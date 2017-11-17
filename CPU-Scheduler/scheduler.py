@@ -34,7 +34,19 @@ def get_processes():
 
 
 def first_come_first_serve(process_list):
-    check_arrived(process_list)
+    while (len(running_processes) > 0 or len(process_list) > 0):
+        global clock
+        check_arrived(process_list)
+        try:
+            process_to_run = running_processes[0]
+        except:
+            process_to_run = None
+        if (process_to_run is not None):
+            run_process(process_to_run)
+        else:
+            print('%s idle' % (clock))
+        clock += 1
+    print_report()
 
 
 def round_robin(process_list):
@@ -66,7 +78,6 @@ def round_robin(process_list):
 
 
 def preemptive_shortest_job_first(process_list):
-    check_arrived(process_list)
     while (len(running_processes) > 0 or len(process_list) > 0):
         global clock
         check_arrived(process_list)
@@ -137,7 +148,8 @@ def print_report():
     print('Average waiting time: %s' % (wait_time / len(completed_processes)))
     print('Average response time: %s' %
           (response_time / len(completed_processes)))
-    print('Average CPU Usage: %.2f%' % (((total_cpu_time) / clock) * 100))
+    print('Average CPU Usage: %.2f%s' % (((total_cpu_time) / clock) * 100,
+                                         '%'))
 
 
 #def print_arrived():
