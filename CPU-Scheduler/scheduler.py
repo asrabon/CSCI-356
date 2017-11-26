@@ -152,9 +152,5 @@ def print_report():
                                          '%'))
 
 
-#def print_arrived():
-
-#def print_running():
-
 if __name__ == '__main__':
     main()
